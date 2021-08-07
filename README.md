@@ -2,6 +2,10 @@
 
 Kth Largest in N elements.
 
+## Presentation Doc
+
+https://docs.google.com/presentation/d/19b7mZahFo7jGbhUH2ENsBqpzf_D8uN6Ml50ZmjAtPVw/edit#slide=id.gc6f73a04f_0_0
+
 ## Detail
 
 - Use Priority Queue by Heap.

@@ -32,7 +32,7 @@ class Heap {
     }
         
     public func push(_ val: Int) {
-        self.hasNumOfValuesLessThanSize()
+        self.hasNumOfValuesLessThanSize() // Heap has space
             ? self.add(val)
             : self.replace(val)
     }
