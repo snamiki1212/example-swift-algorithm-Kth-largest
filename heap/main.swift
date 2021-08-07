@@ -20,7 +20,7 @@ let pickedNum = 3
 
 func doTest(){
     for testCase in testCaseList {
-        let expected = testCase.sorted(by: <)[pickedNum - 1]
+        let expected = testCase.sorted(by: >)[pickedNum - 1]
         let result = Solution.findKthLargest(testCase, pickedNum)!
         let resultStr = expected == result ? "  OK" : "x NG"
         print(resultStr, "|",
@@ -34,3 +34,7 @@ func doTest(){
 }
 
 doTest()
+
+//if let r = Solution.findKthLargest(testCaseList[0], 3) {
+//    print("R", r)
+//}

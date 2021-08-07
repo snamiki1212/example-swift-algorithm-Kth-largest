@@ -9,43 +9,58 @@ import Foundation
 
 class Solution {
     static func findKthLargest(_ nums: [Int], _ k: Int) -> Int? {
-        let heap = Heap.init(by: <);
+        let minHeap = Heap.init(by: <, size: k); // use < if largest, otherwise use >
       
         // Insert array
         for val in nums {
-           heap.add(val)
+           minHeap.push(val)
         }
 
-        // Get kth num
-        for _ in 1..<k {
-          _ = heap.extract()
-        }
-        return heap.extract()
+        return minHeap.peak()
     }
 }
 
 class Heap {
     var values = [0];
     
-//    let comperator = {(_ n1: Int, _ n2: Int) -> Bool in n1 < n2} // smallest
     var comperator: (Int, Int) -> Bool;
+    var size: Int;
     
-    init(by: @escaping (_ n1: Int, _ n2: Int) -> Bool){
+    init(by: @escaping (_ n1: Int, _ n2: Int) -> Bool, size: Int){
         self.comperator = by;
+        self.size = size;
+    }
+        
+    public func push(_ val: Int) {
+        self.hasNumOfValuesLessThanSize()
+            ? self.add(val)
+            : self.replace(val)
     }
     
-    public func add(_ val: Int){
+    private func add(_ val: Int){
         values.append(val)
         self.heapifyUp()
     }
-
-    public func extract() -> Int? {
-        guard self.hasValues() else { return nil }
-        if self.hasOnlyOne() { return values.popLast() }
-        let first = self.popFirstAndReplaceWithLast()
-        self.heapifyDown()
-        return first
+    
+    private func replace(_ val: Int) {
+        let top = self.values[1]
+        if self.comperator(top, val) {
+            self.values[1] = val
+            self.heapifyDown()
+        }
     }
+    
+    public func peak() -> Int? {
+        return values[1]
+    }
+
+//    public func extract() -> Int? {
+//        guard self.hasValues() else { return nil }
+//        if self.hasOnlyOne() { return values.popLast() }
+//        let first = self.popFirstAndReplaceWithLast()
+//        self.heapifyDown()
+//        return first
+//    }
     
     private func heapifyUp(){
         var idx = values.count - 1 // start from idx of last item
@@ -62,13 +77,17 @@ class Heap {
     private func heapifyDown(){
         var idx = 1; // top idx
         while(self.hasLeftChild(idx)){
-            let shouldChooseRight = self.hasRightChild(idx)
-                && self.comperator(
-                    self.getRightChild(idx)!,
-                    self.getLeftChild(idx)!
-                )
+            // pick right or left
+            let childIdx: Int = {() in
+                if !self.hasRightChild(idx) { return self.getLeftChildIdx(idx) }
+                let shouldChooseRight = self.comperator(self.getRightChild(idx)!, self.getLeftChild(idx)!)
+                return shouldChooseRight ? self.getRightChildIdx(idx) : self.getLeftChildIdx(idx)
+            }()
             
-            let childIdx = shouldChooseRight ? self.getRightChildIdx(idx) : self.getLeftChildIdx(idx)
+            // compare parent and child
+            if self.comperator(self.values[idx], self.values[childIdx]) { return }
+            
+            // swap and move idx
             self.values.swapAt(idx, childIdx)
             idx = childIdx
             continue;
@@ -78,6 +97,7 @@ class Heap {
     //
     private func hasValues () -> Bool { return values.count > 1 }
     private func hasOnlyOne () -> Bool { return values.count == 2 }
+    private func hasNumOfValuesLessThanSize() -> Bool { return values.count - 1 < self.size }
     
     // move
     private func popFirstAndReplaceWithLast() -> Int {
