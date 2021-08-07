@@ -7,7 +7,7 @@ Kth Largest in N elements.
 - Use Priority Queue by Heap.
 - Keep K numbers of data in MinHeap
   - Note that heap is not MaxHeap, but MinHeap!
-  - Because of reducing time complexity.
+  - Because of reducing space complexity.
 - Point of Logic
   - During loop:
     - Ignore number if it is less than min num in heap.
