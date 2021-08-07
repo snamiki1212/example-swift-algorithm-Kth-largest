@@ -95,17 +95,17 @@ class Heap {
     }
 
     //
-    private func hasValues () -> Bool { return values.count > 1 }
-    private func hasOnlyOne () -> Bool { return values.count == 2 }
+//    private func hasValues () -> Bool { return values.count > 1 }
+//    private func hasOnlyOne () -> Bool { return values.count == 2 }
     private func hasNumOfValuesLessThanSize() -> Bool { return values.count - 1 < self.size }
     
     // move
-    private func popFirstAndReplaceWithLast() -> Int {
-        let first = self.values[topIdx]
-        let last = self.values.popLast()!
-        self.values[topIdx] = last
-        return first
-    }
+//    private func popFirstAndReplaceWithLast() -> Int {
+//        let first = self.values[topIdx]
+//        let last = self.values.popLast()!
+//        self.values[topIdx] = last
+//        return first
+//    }
     
     // has
     private func hasParent(_ idx: Int) -> Bool { return idx != topIdx }
