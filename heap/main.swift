@@ -35,6 +35,6 @@ func doTest(){
 
 doTest()
 
-//if let r = Solution.findKthLargest(testCaseList[0], 3) {
+//if let r = Solution.findKthLargest(testCaseList[1], 3) {
 //    print("R", r)
 //}

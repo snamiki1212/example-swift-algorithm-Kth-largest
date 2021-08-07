@@ -21,8 +21,8 @@ class Solution {
 }
 
 class Heap {
-    var values = [0];
-    
+    let topIdx = 1;
+    var values = [0]; // the 0 idx is not used because of getting easy when calculating
     var comperator: (Int, Int) -> Bool;
     var size: Int;
     
@@ -43,15 +43,15 @@ class Heap {
     }
     
     private func replace(_ val: Int) {
-        let top = self.values[1]
+        let top = self.values[topIdx]
         if self.comperator(top, val) {
-            self.values[1] = val
+            self.values[topIdx] = val
             self.heapifyDown()
         }
     }
     
     public func peak() -> Int? {
-        return values[1]
+        return values[topIdx]
     }
 
 //    public func extract() -> Int? {
@@ -75,7 +75,7 @@ class Heap {
     }
     
     private func heapifyDown(){
-        var idx = 1; // top idx
+        var idx = topIdx;
         while(self.hasLeftChild(idx)){
             // pick right or left
             let childIdx: Int = {() in
@@ -101,14 +101,14 @@ class Heap {
     
     // move
     private func popFirstAndReplaceWithLast() -> Int {
-        let first = self.values[1]
+        let first = self.values[topIdx]
         let last = self.values.popLast()!
-        self.values[1] = last
+        self.values[topIdx] = last
         return first
     }
     
     // has
-    private func hasParent(_ idx: Int) -> Bool { return idx != 1 }
+    private func hasParent(_ idx: Int) -> Bool { return idx != topIdx }
     private func hasLeftChild (_ idx: Int) -> Bool { return self.getLeftChildIdx(idx) < self.values.count }
     private func hasRightChild(_ idx: Int) -> Bool { return self.getRightChildIdx(idx) < self.values.count }
     
