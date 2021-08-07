@@ -98,17 +98,8 @@ class Heap {
     private func getRightChildIdx(_ idx: Int) -> Int { return (2 * idx) + 1 }
     
     // val getter
-    private func getParent(_ idx: Int) -> Int? {
-        guard self.hasParent(idx) else { return nil }
-        return self.values[self.getParentIdx(idx)]
-    }
-    private func getLeftChild(_ idx: Int) -> Int? {
-        guard self.hasLeftChild(idx) else { return nil }
-        return self.values[self.getLeftChildIdx(idx)]
-    }
-    private func getRightChild(_ idx: Int) -> Int? {
-        guard self.hasRightChild(idx) else { return nil }
-        return self.values[self.getRightChildIdx(idx)]
-    }
+    private func getParent(_ idx: Int) -> Int? { return self.values[self.getParentIdx(idx)] }
+    private func getLeftChild(_ idx: Int) -> Int? { return self.values[self.getLeftChildIdx(idx)] }
+    private func getRightChild(_ idx: Int) -> Int? { return self.values[self.getRightChildIdx(idx)] }
 }
 
